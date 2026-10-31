@@ -15,10 +15,11 @@ $totalSales = mysqli_fetch_assoc($sales);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aplikasi POS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="images/logo (1).png" type="image/x-icon">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
         <div class="container">
             <img src="images/logo (1).png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top me-2">
             <a class="navbar-brand" href="index.php"><b>UJIAN POS</b></a>
