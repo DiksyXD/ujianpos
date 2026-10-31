@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "setting.php";
 
 $module = isset($_GET['m']) ? $_GET['m'] : 'dashboard';
@@ -47,6 +48,23 @@ if ($module == 'dashboard') {
             </div>
         </div>
     </nav>
+
+    <div class="container mt-4">
+        <?php if (isset($_SESSION['message'])) { ?>
+
+            <div class="alert alert-<?= $_SESSION['type']; ?> alert-dismissible fade show" role="alert">
+                <?= $_SESSION['message']; ?>
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+
+            <?php
+            unset($_SESSION['message']);
+            unset($_SESSION['type']);
+            ?>
+
+        <?php } ?>
+    </div>
 
     <div class="container mt-4 mb-5">
 

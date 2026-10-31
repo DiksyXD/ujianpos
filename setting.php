@@ -1,4 +1,5 @@
 <?php
+session_start();
 $koneksi = mysqli_connect('localhost', 'admin', 'admin123', 'ujianpos');
 
 if (!$koneksi) {
