@@ -1,11 +1,15 @@
 <?php
 include "setting.php";
 
-$supplier = mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM suppliers");
-$sales = mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM sales");
+$module = isset($_GET['m']) ? $_GET['m'] : 'dashboard';
 
-$totalSupplier = mysqli_fetch_assoc($supplier);
-$totalSales = mysqli_fetch_assoc($sales);
+if ($module == 'dashboard') {
+    $supplier = mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM suppliers");
+    $sales = mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM sales");
+
+    $totalSupplier = mysqli_fetch_assoc($supplier);
+    $totalSales = mysqli_fetch_assoc($sales);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,55 +32,71 @@ $totalSales = mysqli_fetch_assoc($sales);
             </button>
             <div class="collapse navbar-collapse" id="menu">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="?m=suppliers">Supplier</a></li>
-                    <li class="nav-item"><a class="nav-link" href="?m=sales">Penjualan</a></li>
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="?m=suppliers">Supplier</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="?m=sales">Penjualan</a>
+                        </li>
+                    </ul>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container mt-4">
-        <h3>Selamat Datang</h3>
+    <div class="container mt-4 mb-5">
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card bg-primary text-white">
-                    <div class="card-body">
-                        <h5>Total Supplier</h5>
-                        <h2><?= $totalSupplier['total']; ?></h2>
-                        <a href="?m=suppliers" class="text-white">Lihat Supplier</a>
+        <?php if ($module == 'dashboard') { ?>
+
+            <h3>Dashboard</h3>
+            <p>Selamat datang di Aplikasi POS.</p>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body">
+                            <h5>Total Supplier</h5>
+                            <h2><?= $totalSupplier['total']; ?></h2>
+                            <a href="?m=suppliers" class="text-white">Lihat Supplier</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <h5>Total Penjualan</h5>
+                            <h2><?= $totalSales['total']; ?></h2>
+                            <a href="?m=sales" class="text-white">Lihat Penjualan</a>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6">
-                <div class="card bg-success text-white">
-                    <div class="card-body">
-                        <h5>Total Penjualan</h5>
-                        <h2><?= $totalSales['total']; ?></h2>
-                        <a href="?m=sales" class="text-white">Lihat Penjualan</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        <?php } else { ?>
 
-    <div class="container mt-3 mb-5">
-        <?php
-        $module = isset($_GET['m']) ? $_GET['m'] : 'suppliers';
+            <?php
+            switch ($module) {
+                case 'suppliers':
+                    include "suppliers/index.php";
+                    break;
 
-        switch ($module) {
-            case 'suppliers':
-                include "suppliers/index.php";
-                break;
-            case 'sales':
-                include "sales/index.php";
-                break;
-            default:
-                include "index.php";
-                break;
-        }
-        ?>
+                case 'sales':
+                    include "sales/index.php";
+                    break;
+
+                default:
+                    echo "<div class='alert alert-warning'>Halaman tidak ditemukan.</div>";
+                    break;
+            }
+            ?>
+
+        <?php } ?>
+
     </div>
 
     <div class="fixed-bottom bg-light border-top p-2 text-center">
