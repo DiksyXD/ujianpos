@@ -19,7 +19,7 @@ $totalSales = mysqli_fetch_assoc($sales);
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success border-bottom shadow-sm">
         <div class="container">
             <img src="images/logo (1).png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top me-2">
             <a class="navbar-brand" href="index.php"><b>UJIAN POS</b></a>
