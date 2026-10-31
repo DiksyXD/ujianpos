@@ -22,7 +22,7 @@ include_once "setting.php";
                             echo '<tr>
                                 <td>' . $no . '</td>
                                 <td>' . htmlspecialchars($r['name'] ?? '') . '</td>
-                                <td>Rp ' . number_format($r['total'] ?? 0, 0, ',', '.') . '</td>
+                                <td>' . ($r['total'] ?? 0) . '</td>
                                 <td>
                                     <a href="?m=sales&s=edit&id=' . $r['id'] . '" class="btn btn-sm btn-warning">Ubah</a>
                                     <a href="?m=sales&s=delete&id=' . $r['id'] . '" class="btn btn-sm btn-danger" onclick="return confirm(\'Yakin ingin menghapus penjualan ini?\')">Hapus</a>
